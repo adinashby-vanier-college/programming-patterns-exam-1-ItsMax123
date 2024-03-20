@@ -1,0 +1,161 @@
+name: Autograding Tests
+'on':
+- push
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: partitionLabelsTest1
+      id: partitionlabelstest1
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: partitionLabelsTest1
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.partitionLabelsTest1
+        timeout: 1
+        max-score: 6
+    - name: partitionLabelsTest2
+      id: partitionlabelstest2
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: partitionLabelsTest2
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.partitionLabelsTest2
+        timeout: 1
+        max-score: 6
+    - name: partitionLabelsTest3
+      id: partitionlabelstest3
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: partitionLabelsTest3
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.partitionLabelsTest3
+        timeout: 1
+        max-score: 6
+    - name: partitionLabelsTest4
+      id: partitionlabelstest4
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: partitionLabelsTest4
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.partitionLabelsTest4
+        timeout: 1
+        max-score: 6
+    - name: partitionLabelsTest5
+      id: partitionlabelstest5
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: partitionLabelsTest5
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.partitionLabelsTest5
+        timeout: 1
+        max-score: 6
+    - name: traverseTreeTest1
+      id: traversetreetest1
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: traverseTreeTest1
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.traverseTreeTest1
+        timeout: 1
+        max-score: 6
+    - name: traverseTreeTest2
+      id: traversetreetest2
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: traverseTreeTest2
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.traverseTreeTest2
+        timeout: 1
+        max-score: 6
+    - name: traverseTreeTest3
+      id: traversetreetest3
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: traverseTreeTest3
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.traverseTreeTest3
+        timeout: 1
+        max-score: 6
+    - name: traverseTreeTest4
+      id: traversetreetest4
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: traverseTreeTest4
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.traverseTreeTest4
+        timeout: 1
+        max-score: 6
+    - name: traverseTreeTest5
+      id: traversetreetest5
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: traverseTreeTest5
+        setup-command: ''
+        command: gradle test --tests ExamOneSec1And2Tests.traverseTreeTest5
+        timeout: 1
+        max-score: 6
+    - name: reverseBetweenTest1
+      id: reversebetweentest1
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: reverseBetweenTest1
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.reverseBetweenTest1
+        timeout: 1
+        max-score: 10
+    - name: reverseBetweenTest2
+      id: reversebetweentest2
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: reverseBetweenTest2
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.reverseBetweenTest2
+        timeout: 1
+        max-score: 10
+    - name: reverseBetweenTest3
+      id: reversebetweentest3
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: reverseBetweenTest3
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.reverseBetweenTest3
+        timeout: 1
+        max-score: 10
+    - name: reverseBetweenTest4
+      id: reversebetweentest4
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: reverseBetweenTest4
+        setup-command: gradle clean
+        command: gradle test --tests ExamOneSec1And2Tests.reverseBetweenTest4
+        timeout: 1
+        max-score: 10
+    - name: Autograding Reporter
+      uses: education/autograding-grading-reporter@v1
+      env:
+        PARTITIONLABELSTEST1_RESULTS: "${{steps.partitionlabelstest1.outputs.result}}"
+        PARTITIONLABELSTEST2_RESULTS: "${{steps.partitionlabelstest2.outputs.result}}"
+        PARTITIONLABELSTEST3_RESULTS: "${{steps.partitionlabelstest3.outputs.result}}"
+        PARTITIONLABELSTEST4_RESULTS: "${{steps.partitionlabelstest4.outputs.result}}"
+        PARTITIONLABELSTEST5_RESULTS: "${{steps.partitionlabelstest5.outputs.result}}"
+        TRAVERSETREETEST1_RESULTS: "${{steps.traversetreetest1.outputs.result}}"
+        TRAVERSETREETEST2_RESULTS: "${{steps.traversetreetest2.outputs.result}}"
+        TRAVERSETREETEST3_RESULTS: "${{steps.traversetreetest3.outputs.result}}"
+        TRAVERSETREETEST4_RESULTS: "${{steps.traversetreetest4.outputs.result}}"
+        TRAVERSETREETEST5_RESULTS: "${{steps.traversetreetest5.outputs.result}}"
+        REVERSEBETWEENTEST1_RESULTS: "${{steps.reversebetweentest1.outputs.result}}"
+        REVERSEBETWEENTEST2_RESULTS: "${{steps.reversebetweentest2.outputs.result}}"
+        REVERSEBETWEENTEST3_RESULTS: "${{steps.reversebetweentest3.outputs.result}}"
+        REVERSEBETWEENTEST4_RESULTS: "${{steps.reversebetweentest4.outputs.result}}"
+      with:
+        runners: partitionlabelstest1,partitionlabelstest2,partitionlabelstest3,partitionlabelstest4,partitionlabelstest5,traversetreetest1,traversetreetest2,traversetreetest3,traversetreetest4,traversetreetest5,reversebetweentest1,reversebetweentest2,reversebetweentest3,reversebetweentest4
