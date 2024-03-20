@@ -48,34 +48,61 @@ public class ExamOneSec1And2 {
         return result;
     }
 
-    public static void recursiveTraverse(TreeNode node, int layer, ArrayList<ArrayList<Integer>> layers) {
-        System.out.println(layers.get(layer));
-        if (layers.get(layer) == null) {
-            layers.add(new ArrayList<>());
+    public static HashMap<Integer, ArrayList<Integer>> recursiveTraverse(TreeNode node, int layer, HashMap<Integer, ArrayList<Integer>> layers) {
+        if (!layers.containsKey(layer)) {
+            layers.put(layer, new ArrayList<>());
         }
-        layers.get(layer).add(node.val);
+        ArrayList<Integer> list = layers.get(layer);
+        list.add(node.val);
+        layers.put(layer, list);
         if (node.left != null) {
-            recursiveTraverse(node.left, layer + 1, layers);
+            layers = recursiveTraverse(node.left, layer + 1, layers);
         }
         if (node.right != null) {
-            recursiveTraverse(node.right, layer + 1, layers);
+            layers = recursiveTraverse(node.right, layer + 1, layers);
         }
+        return layers;
     }
         
     public static int[] traverseTree(TreeNode root) {
         TreeNode node = root;
-        ArrayList<ArrayList<Integer>> layers = new ArrayList<>();
+        HashMap<Integer, ArrayList<Integer>> layers = recursiveTraverse(node, 0, new HashMap<>());
         int layer = 0;
-        recursiveTraverse(node, 0, layers);
-        //while (node.left == null && node.right == null) {
-            
-        //}
-        System.out.println("test");
-        
-        return null;
+        ArrayList<Integer> resultList = new ArrayList<>();
+        while (layers.containsKey(layer)) {
+            resultList.addAll(layers.get(layer));
+            layer++;
+        }
+        int[] result = new int[resultList.size()];
+        for (int i = 0; i < resultList.size(); i++) {
+            result[i] = resultList.get(i);
+        }
+        return result;
     }
-
+    
     public static ListNode reverseBetween(ListNode head, int left, int right) {
-        return null;
+        ListNode node = head;
+        int temp;
+        ArrayList<Integer> arr = new ArrayList<>();
+        ArrayList<Integer> reversedList = new ArrayList<>();
+        arr.add(node.val);
+        while (node.next != null) {
+            node = node.next;
+            arr.add(node.val);
+        }
+        for (int i = right-1; i > left-2; i--) {
+            reversedList.add(arr.get(i));
+        }
+        for (int i = left-1; i < right; i++) {
+            arr.set(i, reversedList.get(i-left+1));
+        }
+        head = new ListNode(arr.get(0));
+        node = head;
+        for (int i = 1; i < arr.size(); i++) {
+            node.next = new ListNode(arr.get(i));
+            node = node.next;
+        }
+        return head;
     }
+   
 }
